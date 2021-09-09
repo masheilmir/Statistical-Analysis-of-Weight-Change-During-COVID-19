@@ -1,0 +1,721 @@
+---
+title: |
+  | \vspace{8cm} \LARGE Analyzing Change in Weight as a Result of the COVID-19 Pandemic
+author: "Masheil Mir"
+date: "June 15, 2021"
+output:
+  pdf_document: default
+---
+
+```{r, include=FALSE}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE)
+library(openintro)
+library(tidyverse)
+library(dplyr)
+library(qwraps2)
+library(kableExtra)
+library(ggplot2)
+library(ggpubr)
+library(EnvStats)
+```
+
+\newpage
+
+# Part 1
+
+## Goal
+ 
+On March 12th, 2020, the Premier of Ontario declared the first drastic measure since "Corona virus" was first heard of in late 2019. Doug Ford (Ford) decided on the closure of publically funded schools across the province post March break for the duration of two weeks [1]. This was only the beginning of what has now become one of the most life altering experiences in the daily lives of everyone across the globe. As the province got through its first wave, it then entered its second in late August. This forced the Ford government to take more drastic measures and implement stronger restrictions. These measures included the closing of shopping centers, dine-in restuarants, gyms and sports/recreational centers [2]. As a result, many people were forced to make drastic lifestyle changes, espeically since they can no longer enjoy the activities they used to pre-pandemic. As a result of the gym closures due to COVID-19, a whopping 60% of those who held gym memberships cancelled or considered cancelling their subscription, and the member return rate was only a mere 31% once facilities did reopen [3]. The goal of this survey is to determine the health affects of COVID-19 on individual weight depending on their lifestyle changes.
+
+This survey will look into the eating and exercise habits of an individual and hone in on their weight before vs. during the COVID-19 pandemic. This data can be used in other studies such as determining whether obeseity in Canadians has increased within the last 5-10 years. It will essentially allow future users to determine whether or not a correlation exists between the COVID-19 Pandemic and weight.
+
+## Procedure
+
+To conduct this survey, it is important to take into consideration the idea of collecting data in the most time and cost efficient way as possible. Since the target audience for this survey will mainly be adult Canadians, we can collect the data from Ontario residents over the age of 18. But since obtaining the email list for Ontario residents is a bit challenging and pricey [4], we decided to take the email list for residents in the city of Markham, Ontario instead. 
+
+The frame of this survey will be a list frame taken from an address book of Markham residents [5]. This will come directly from a pre-made database that includes the information and data of Markham residents [6].
+
+The sample frame will use the emails of the Markham residents. These emails are ones that are pre-entered by residents themselves, making them a good and reliable resource to ensure that the survey will be reaching real people. Using an email list from a city also ensures that our population is 18+, and gives us a good mix of ages, ethnicities, etc..
+
+The procedure will be using random sampling without replacement in order to conduct the survey. This will ensure that residents of all ages and backgrounds are selected randomly and that they all have an equal chance at being included in the sample. In general, the following steps will be executed:
+
+1) Create a survey using Google Forms
+2) Send out the survey through email to Markham residents, at random.
+
+A drawback of this process is the fact that some people may enter emails that may not be real, or they may not use these emails frequently, thus they will not see the survey in their inbox. Additionally, since we are only catering to one City, there may be a bias in regards to the number of accessible gyms in one neighbourhood vs. another. To account for the first drawback, resampling can be done on the rest of the dataset (excluding those already sampled) to guarantee survey responses. Regardless of this, there may still be a bias based on the fact that we are only considering the population of Markham residents rather than all Ontario residents, thus possibly skewing the results.
+
+## Showcasing the survey.
+
+The survey can be found at the following link: [https://forms.gle/umHYryYrnNexPLxw8](https://forms.gle/umHYryYrnNexPLxw8)
+
+**Question 1: Did you participate in physical activity before the COVID-19 Pandemic?**
+This question is important to us because it provides us with some insight of how physically active the individual was. From this question we can deduce how cautious the individual is about their weight and physical wellbeing, and how likely they might have been to continue participating in physical activity throughout the pandemic. In other words, by asking about their activity before the pandemic we can see how they were maintaining their physical health under normal circumstances. 
+
+The drawback of asking this type of question is that in some cases (due to a medical condition) the individual might not be able to participate in physical activity and does not give the complete picture of the individual's physical health. Additionally, there is not always a guarantee that if someone is physically active at a certain moment in time, they will continue to be throughout. A better way to phrase this question would have been asking if they regularly participate in physical activity or if they only do it for a few months throughout the year.
+
+**Question 2: How many meals have you been eating on average per day since the COVID-19 Pandemic started?**
+
+When looking at how many meals a person is eating on average per day, we can analyze their eating habits in comparison to those before the pandemic. It is important to recognize that most commonly in the West, three well balanced meals are recommended to ensure you are not overeating or undereating. Assuming this is true for the average Canadian (i.e. they are eating well balanced meals), we can determine whether their food intake has increased, decreased, or stayed the same, and in return determine if there is a correlation between that and their current weight. Using this, we can assume that someone eating > 3 meals a day will perhaps gain more weight than someone who is eating < 3 meals per day.
+ 
+The downside of making this assumption is exactly that; we are assuming the meals are well balanced when in reality we cannot conclude that information with the given question. The number of meals being eaten and their portion sizes, alongside age, gender, and genetics all affect metabolism in different ways. Having 3 large meals will result in a slower metabolism vs 5 smaller, spaced out meals [7]. Thus, a higher metabolism with a larger number of meals will result in burning more fat and calories, thus lowering weight.
+
+**Question 3: How has your weight changed since the COVID-19 Pandemic began? **
+It is important to hone in on the change in weight before vs. after the pandemic as this will give us a better picture about how an individual has been taking care of themselves throughout the pandemic, if at all. Losing gyms and other facilities as perhaps their only means of getting any physical activity could have easily impacted their motivation and dedication to continuing the process at home. This question will give us an idea of how an individual's weight has fluctuated as a result of the pandemic. It allows us to compare and contrast the results in our data, such as with Question 1, to determine whether the weight change is in fact a result of the pandemic or eating habits, or if it is simply because of not being active in general, even before the pandemic. 
+
+The drawback of this question is that there are many factors that may contribute to an individual's weight fluctuating. It does not solely have to be based on their level of physical activity. There may be some people who work out every day, year round, and do not have the same results as those around them. There may also be other factors, such as age, sex, sleeping patterns, and even genetics that may play a role but are not considered in this survey [8].
+
+\newpage
+
+# Part 2
+
+## Data
+
+### 1. Data Collection
+
+The survey consisted of 12 questions, with 5 categorical variables and 6 numerical variables. The way the data for this survey was collected was through a Google Form link using the procedure similar to that which was outlined in Part 1. In detail, the following steps were conducted to gather the data for this survey:
+
+1) Create a Google Form and generate a link for public access. To ensure the entries are anonymous, details such as name, age, gender, sex, email, etc., were not asked to be included.
+2) Individuals in Markham were selected and asked to spread the survey to those they know in the area with a short description about the survey's purpose.
+3) The data was converted into a CSV file in order to easily analyze in R.
+
+The drawback of the above lies within step 2 of the process. Having only sent the survey to Markham Residents that I am aware of could have created some bias, thus a better solution that will ensure the survey reaches a variety of individuals in Markham with better variability is the following:
+
+1) Access the Markham residents database and download the CSV file. We know that these indivduals are above the age of 18 as minors are not primary owners of residency in Markham.
+2) Filter only the emails of the residents in the CSV file.
+3) Markham has a population of approximately 330 000 and about 68% of indivudals are of working age (16+) [9]. To include only 18+ lets take an educated assumption that this means around 60% of indivudals classify as adults. That is about 200 000 residents in Markham. Lets use 500 as our threshold for each random sample taken. After filtering the data, perform the RAND() function to randomly select 500 residents emails, without replacement. 
+4) Take these 500 randomly sampled emails and send the survey link out to them. If we recieve a less than 10% response rate, resample using RAND() and without replacement, and repeat the process until we have a decent number of responses.
+5) Download the survey results as a CSV file in order to easily analyze in R
+
+### 2. Data Cleansing
+```{r, include = FALSE}
+# reading in data
+surveyData <- read_csv("survey responses.csv")
+
+# checking column names
+colnames(surveyData)
+
+# renaming columns
+surveyDataNew <- surveyData %>% 
+  rename("Physical Activity BP" = "Did you participate in physical activity before the COVID-19 Pandemic?",
+         "Physical Activing DP" = "Do you participate in physical activity during the COVID-19 Pandemic?",
+         "Avg physical activity (HPW) BP" = "On average, how many hours per week did you spend participating in physical activity before the COVID-19 Pandemic (input a numerical value in hours)",
+         "Avg physical activity (HPW) DP" = "On average, how many hours per week do you spend participating in physical activity during the COVID-19 Pandemic (input a numerical value in hours)",
+         "Change in Eating Habits" = "Did your eating habits change as a result of the COVID-19 Pandemic?",
+         "Avg Meal Count BP" = "How many meals did you eat on average before the COVID-19 Pandemic started? (input a numerical value)",
+         "Avg Meal Count DP" = "How many meals have you been eating on average per day since the COVID-19 Pandemic started? (input a numerical value)",
+         "Main Types of Meals DP" = "What do your meals consist mostly of during the COVID-19 Pandemic?",
+         "Weight BP (lbs)" = "Approximately what weight range were you in before the COVID-19 Pandemic, around March 2020 (input a numerical value in pounds)",
+         "Change in Weight" = "How has your weight changed since the COVID-19 Pandemic began?",
+         "Weight DP (lbs)" = "Approximately what weight range are you in now, during the COVID-19 Pandemic, around May 2021 (input a numerical value in pounds)"
+         )
+
+# Removing unnecessary columns from data frame [10]
+surveyDataNew <- subset(surveyDataNew, select = -Timestamp)
+surveyDataNew <- na.omit(surveyDataNew)
+
+# setting variable names for each column
+physAct_before <- surveyDataNew$`Physical Activity BP`
+physAct_during <- surveyDataNew$`Physical Activing DP`
+avgPhysAct_before <- surveyDataNew$`Avg physical activity (HPW) BP`
+avgPhysAct_during <- surveyDataNew$`Avg physical activity (HPW) DP`
+eating_habits <- surveyDataNew$`Change in Eating Habits`
+avgMealCount_before <- surveyDataNew$`Avg Meal Count BP`
+avgMealCount_during <- surveyDataNew$`Avg Meal Count DP`
+meal_type <- surveyDataNew$`Main Types of Meals DP`
+weight_before <- surveyDataNew$`Weight BP (lbs)`
+weight_change <- surveyDataNew$`Change in Weight`
+weight_during <- surveyDataNew$`Weight DP (lbs)`
+
+# assigning weights
+physAct_before <- ifelse(physAct_before == "Yes", 1, 0)
+physAct_during <- ifelse(physAct_during == "Yes", 1, 0)
+eating_habits <- ifelse(eating_habits == "Yes", 1, 0)
+
+# Assigning numeric values to meal type of 1 = Home made meals, 2 = Snacks, 3 = Take out meals
+rv <- meal_type
+meal_type <- as.numeric(factor(rv))
+
+# Assigning numeric values to weight change of 1 = Gained 1-10 pounds, 2 = Gained 11 - 20 pounds, 3 = Gained 21 - 30 Pounds meals, 4 = Gained 31 - 40 pounds, 5 = I lost weight, 6 = I stayed the same weight, 7 = Gained 41 - 50 pounds, 8 = Gained > 50 pounds
+rv <- weight_change
+weight_change <- as.numeric(factor(rv))
+```
+
+Before getting into the cleaning process of the data, note that we will be using the following acronyms throughout this study:
+
+1. BP = before pandemic 
+2. DP = During Pandemic
+3. HPW = Hours per week
+
+In order to ensure that the data is clean and free of unwanted variables and values, the following steps were performed:
+
+1) Since we are using a Google Form to generate this data, there might be unwanted columns such as a "Timestamp" that is not relevant to our study as it does not contribute to our goal. Using a built in R function, this column can be removed from the data frame.
+2) It is important to check and remove any NaN or empty cells from the dataframe as this may affect/impact our data analysis later on. This can be done using a built in R function.
+3) Since the data is retrieved directly through a Google Form, column names will be the questions taken from that form. This may result in a large string of text that makes it harder to see what each column is giving information for, thus the columns were renamed using the built in rename() function in R. The columns were renamed to ensure that there is still a general understanding of what the column is referring to.
+4) When referring to the column names for data analysis, it might still be difficult to use the rename assignments from part 3 as they are still a bit wordy. Thus, we can name the columns for our own use again, with "before" and "after" at the end of each new name assigned to allow us to keep track of what the variable name is referencing. 
+
+Since the data cleansing is complete, we can now move onto giving a complete breakdown of the variables in the dataframe alongside important characteristics. This will allow us to see which variables are more significant and may aid us in our analysis.
+
+### 3. Data Description
+
+The data is described in the below table. This table includes the variable name, type (categorical vs. numerical), and a short description of its purpose.
+
+```{r, echo = FALSE}
+dataDesc <- data.frame(Variable = c("Physical Activity BP",
+                                    "Physical Activing DP", 
+                                    "Avg physical activity (HPW) BP", 
+                                    "Avg physical activity (HPW) DP", 
+                                    "Change in Eating Habits", 
+                                    "Avg Meal Count BP", 
+                                    "Avg Meal Count DP", 
+                                    "Main Types of Meals DP", 
+                                    "Weight BP (lbs)", 
+                                    "Change in Weight", 
+                                    "Weight DP (lbs)"),
+                       Type = c("Categorical",
+                                    "Categorical", 
+                                    "Numerical", 
+                                    "Numerical", 
+                                    "Categorical", 
+                                    "Numerical", 
+                                    "Numerical", 
+                                    "Categorical", 
+                                    "Numerical", 
+                                    "Categorical", 
+                                    "Numerical"),
+                       Description = 
+                         c("This variable represents whether or not the individual participated in physical activity before the COVID-19 pandemic. It is a yes/no question, thus the response is either a yes or no.",
+                           "This variable represents whether or not the individual participated in physical activity during the COVID-19 pandemic. It is a yes/no question, thus the response is either a yes or no.",
+                           "This variable represents the average number of hours an individual spent participating in physical activity before the COVID-19 pandemic. For example, 4, which represents 4 hours.",
+                           "This variable represents the average number of hours an individual spent participating in physical activity during the COVID-19 pandemic. For example, 0, which represents 0 hours.",
+                           "This variable represents whether or not the eating habits of the indivdual changed as a result of the COVID-19 pandemic. It is a yes/no question, thus the response is either a yes or no.",
+                           "This variable represents the average number of meals an indivudal ate before the COVID-19 pandemic. For example, 3, which represents 3 meals eaten per day on average before the COVID-19 pandemic.",
+                           "This variable represents the average number of meals an indivudal ate during the COVID-19 pandemic. For example, 2, which represents 2 meals eaten per day on average during the COVID-19 pandemic.",
+                           "This variable describes the types of meals most frequently eaten by the individual. It consists of three options, home made meals/snaks/take out meals. The answer consists of one of the three options, for example, home made meals.",
+                           "This variable represents the weight of the individual before the COVID-19 pandemic in pounds. For example, if the individual enters 156, then that means their weight before the pandemic was 156 pounds.",
+                           "This variable represents the change in weight of the individual. It consists of ranges such as: gained 1-10 pounds, I stayed the same weight, I lost weight, etc.",
+                           "This variable represents the weight of the individual during the COVID-19 pandemic in pounds. For example, if the individual enters 104, then that means their weight during the pandemic is 104 pounds."))
+
+# refer to reference [11]
+kbl(dataDesc) %>%
+  kable_material(full_width = F, position = "center") %>%
+  column_spec(3, width = "25em")
+```
+
+\newpage
+
+### 4. Numerical Summaries and Plots
+
+For all of the numerical data, we can obtain the numerical summaries that will include the Center and Spread of variable. The Ceneter and Spread includes the following values that will also be calculated as a result: mean, median, mode, standard deviation, interquartile range (IQR), minimum and maximum. 
+
+In the case of the categorical variables, plots will be presented to further showcase the before and after affects.
+
+```{r include=FALSE}
+# means - numerical
+mean_avgPhysAct_before <- mean(avgPhysAct_before)
+mean_avgPhysAct_during <- mean(avgPhysAct_during)
+mean_avgMealCount_before <- mean(avgMealCount_before)
+mean_avgMealCount_during <- mean(avgMealCount_during)
+mean_weight_before <- mean(weight_before)
+mean_weight_during <- mean(weight_during)
+
+
+# means - categorical
+mean_PhysAct_before <- mean(physAct_before)
+mean_PhysAct_during <- mean(physAct_during)
+mean_eating_habits <- mean(eating_habits)
+mean_meal_type <- mean(meal_type)
+mean_weight_change <- mean(weight_change) 
+
+
+# medians - numerical
+median_avgPhysAct_before <- median(avgPhysAct_before)
+median_avgPhysAct_during <- median(avgPhysAct_during)
+median_avgMealCount_before <- median(avgMealCount_before)
+median_avgMealCount_during <- median(avgMealCount_during)
+median_weight_before <- median(weight_before)
+median_weight_during <- median(weight_during)
+
+# medians - categorical
+median_PhysAct_before <- median(physAct_before)
+median_PhysAct_during <- median(physAct_during)
+median_eating_habits <- median(eating_habits)
+median_meal_type <- median(meal_type)
+median_weight_change <- median(weight_change) 
+
+
+# standard deviation - numerical
+sd_avgPhysAct_before <- sd(avgPhysAct_before)
+sd_avgPhysAct_during <- sd(avgPhysAct_during)
+sd_avgMealCount_before <- sd(avgMealCount_before)
+sd_avgMealCount_during <- sd(avgMealCount_during)
+sd_weight_before <- sd(weight_before)
+sd_weight_during <- sd(weight_during)
+
+# standard deviation - categorical
+sd_PhysAct_before <- sd(physAct_before)
+sd_PhysAct_during <- sd(physAct_during)
+sd_eating_habits <- sd(eating_habits)
+sd_meal_type <- sd(meal_type)
+sd_weight_change <- sd(weight_change) 
+
+# min - numerical
+min_avgPhysAct_before <- min(avgPhysAct_before)
+min_avgPhysAct_during <- min(avgPhysAct_during)
+min_avgMealCount_before <- min(avgMealCount_before)
+min_avgMealCount_during <- min(avgMealCount_during)
+min_weight_before <- min(weight_before)
+min_weight_during <- min(weight_during)
+
+# min - categorical
+min_PhysAct_before <- min(physAct_before)
+min_PhysAct_during <- min(physAct_during)
+min_eating_habits <- min(eating_habits)
+min_meal_type <- min(meal_type)
+min_weight_change <- min(weight_change)
+
+# max - numerical
+max_avgPhysAct_before <- max(avgPhysAct_before)
+max_avgPhysAct_during <- max(avgPhysAct_during)
+max_avgMealCount_before <- max(avgMealCount_before)
+max_avgMealCount_during <- max(avgMealCount_during)
+max_weight_before <- max(weight_before)
+max_weight_during <- max(weight_during)
+
+# max - categorical
+max_PhysAct_before <- max(physAct_before)
+max_PhysAct_during <- max(physAct_during)
+max_eating_habits <- max(eating_habits)
+max_meal_type <- max(meal_type)
+max_weight_change <- max(weight_change)
+
+# IQR - numerical
+iqr_avgPhysAct_before <- iqr(avgPhysAct_before)
+iqr_avgPhysAct_during <- iqr(avgPhysAct_during)
+iqr_avgMealCount_before <- iqr(avgMealCount_before)
+iqr_avgMealCount_during <- iqr(avgMealCount_during)
+iqr_weight_before <- iqr(weight_before)
+iqr_weight_during <- iqr(weight_during)
+
+# IQR - categorical
+iqr_PhysAct_before <- iqr(physAct_before)
+iqr_PhysAct_during <- iqr(physAct_during)
+iqr_eating_habits <- iqr(eating_habits)
+iqr_meal_type <- iqr(meal_type)
+iqr_weight_change <- iqr(weight_change)
+```
+
+*a. Participation in Physical Activity*
+
+```{r echo=FALSE}
+PhysAct_before_numsum <- tibble(c("Mean", 
+                                     "Min", 
+                                     "Max", 
+                                     "Median", 
+                                     "Standard Deviation", 
+                                     "Interquartile Range"), 
+                                   c(mean_PhysAct_before, 
+                                     min_PhysAct_before, 
+                                     max_PhysAct_before, 
+                                     median_PhysAct_before, 
+                                     sd_PhysAct_before, 
+                                     iqr_PhysAct_before))
+names(PhysAct_before_numsum )[names(PhysAct_before_numsum ) == "c(\"Mean\", \"Min\", \"Max\", \"Median\", \"Standard Deviation\", \"Interquartile Range\")"] <- "Numerical Measures"
+names(PhysAct_before_numsum )[names(PhysAct_before_numsum ) == "c(...)"] <- "Physical Activity BEFORE the COVID-19 Pandemic"
+kable(PhysAct_before_numsum , "pipe")
+```
+
+```{r echo=FALSE}
+PhysAct_during_numsum <- tibble(c("Mean", 
+                                     "Min", 
+                                     "Max", 
+                                     "Median", 
+                                     "Standard Deviation", 
+                                     "Interquartile Range"), 
+                                   c(mean_PhysAct_during, 
+                                     min_PhysAct_during, 
+                                     max_PhysAct_during, 
+                                     median_PhysAct_during, 
+                                     sd_PhysAct_during, 
+                                     iqr_PhysAct_during))
+names(PhysAct_during_numsum )[names(PhysAct_during_numsum ) == "c(\"Mean\", \"Min\", \"Max\", \"Median\", \"Standard Deviation\", \"Interquartile Range\")"] <- "Numerical Measures"
+names(PhysAct_during_numsum )[names(PhysAct_during_numsum ) == "c(...)"] <- "Physical Activity DURING the COVID-19 Pandemic"
+kable(PhysAct_during_numsum , "pipe")
+```
+
+The table above shows the categorical results of the participation in physical activity before and during the COVID-19 Pandemic. We will only be focussing on the mean for this variable since the rest of the values do not provide relevant information for the study. Notice that before COVID the mean was **`r mean_PhysAct_before`** compared to a mean of **`r mean_PhysAct_during`** during the COVID-19 pandemic, meaning that more individuals were physically active before the pandemic. Looking at the second table, notice that the overall mean is lower, meaning that there were more individuals who did not participate in physical activity during the pandemic, thus we can conclude that overall physical activity decreased during the pandemic vs. before.
+
+```{r echo=FALSE, out.width="75%", out.height="75%", fig.align = 'center'}
+ggplot()+
+  geom_bar(data=surveyDataNew, aes(x=factor(physAct_before), fill="r"), alpha=0.3) + geom_bar(data=surveyDataNew, aes(x=factor(physAct_during), fill="b"), alpha=0.3) + scale_fill_manual(name="Physical Activity", values = c("r" = "navy", "b" = "darkorange"), labels=c("r" = "Before COVID", "b" = "During COVID")) + ggtitle("Participation in Physical Activity Before and During COVID-19 Pandemic") + xlab(NULL) + ylab("Number of Individuals") + scale_x_discrete(labels=c("No", "Yes")) 
+```
+
+To provide some graphical insight on the physical activity of participants before and during COVID-19 pandemic we can see that the number of individuals that did participate in physical activity dropped from approximately 28 to 22 and those that did not increased from approximately 5 to 10. This means that there was a significant enough impact of those who did not participate in physical activity during the pandemic to change the mean, as shown in the tables above.
+
+*b. Change in Eating Habits During COVID-19 Pandemic*
+```{r echo=FALSE}
+eating_habits_numsum <- tibble(c("Mean", 
+                                     "Min", 
+                                     "Max", 
+                                     "Median", 
+                                     "Standard Deviation", 
+                                     "Interquartile Range"), 
+                                   c(mean_eating_habits, 
+                                     min_eating_habits, 
+                                     max_eating_habits, 
+                                     median_eating_habits, 
+                                     sd_eating_habits, 
+                                     iqr_eating_habits))
+names(eating_habits_numsum )[names(eating_habits_numsum ) == "c(\"Mean\", \"Min\", \"Max\", \"Median\", \"Standard Deviation\", \"Interquartile Range\")"] <- "Numerical Measures"
+names(eating_habits_numsum )[names(eating_habits_numsum ) == "c(...)"] <- "Chane in Eating Habits During COVID-19 Pandemic"
+kable(eating_habits_numsum , "pipe")
+```
+
+The table above shows the change of eating habits of the participants as a result of the COVID-19 Pandemic. The mean value is **`r mean_eating_habits`** which tells us that the majority of participants experienced a change in their eating habits. Since this is a binary question with two possible answers, 0 meaning no and 1 meaning yes, we can conclude that there was a significant amount of individuals that experienced a change in their eating habits.
+ 
+```{r echo=FALSE, out.width="75%", out.height="75%", fig.align = 'center'}
+ggplot()+
+  geom_bar(data=surveyDataNew, aes(x=factor(eating_habits)), alpha=0.3, fill="navy") + ggtitle("Eating Habits During the COVID-19 Pandemic") + scale_x_discrete(labels=c("No", "Yes")) + xlab(NULL) + ylab("Number of Individuals")
+```
+To provide some graphical insight on the change in eating habits during the COVID-19 Pandemic we can see that the number of participants that experienced some change is significantly higher than those that did not with approximately 26 agreeing and approximately 6 disagreeing.
+
+*c.Types of Meals Eaten During COVID-19 Pandemic*
+```{r echo=FALSE}
+meal_type_numsum <- tibble(c("Mean", 
+                                     "Min", 
+                                     "Max", 
+                                     "Median", 
+                                     "Standard Deviation", 
+                                     "Interquartile Range"), 
+                                   c(mean_meal_type, 
+                                     min_meal_type, 
+                                     max_meal_type, 
+                                     median_meal_type, 
+                                     sd_meal_type, 
+                                     iqr_meal_type))
+names(meal_type_numsum )[names(meal_type_numsum ) == "c(\"Mean\", \"Min\", \"Max\", \"Median\", \"Standard Deviation\", \"Interquartile Range\")"] <- "Numerical Measures"
+names(meal_type_numsum )[names(meal_type_numsum ) == "c(...)"] <- "Types of Meals Eaten During COVID-19 Pandemic"
+kable(meal_type_numsum , "pipe")
+```
+
+The table above shows the mean of the types of meals that were eaten throughout the COVID-19 pandemic. Since these numbers are referencing 1 of 3 options, 1 being home made meals, 2 being snacks and 3 being take out meals, we can see that the average is about **`r mean_meal_type`**, rounded down to 1. This means that the average individual ate homemade meals throughout the pandemic. This data alone does not offer much significance but when paired with the rest of our data, it may provide important insight.
+ 
+```{r echo=FALSE, out.width="75%", out.height="75%", fig.align = 'center'}
+ggplot()+
+  geom_bar(data=surveyDataNew, aes(x=factor(meal_type)), alpha=0.3, fill="navy") + ggtitle("Types of Meals Eaten During COVID-19 Pandemic") + scale_x_discrete(labels=c("Home Made Meals", "Snacks", "Take Out Meals")) + xlab(NULL) + ylab("Number of Individuals")
+```
+
+Looking at the graph above, we notice the same results as our table. Majority of individuals ate home cooked meals, and not many individuals ate snacks or take out meals throughout the pandemic. Again, this alone does not offer much significance but when paired with the rest of our data, it may provide important insight.
+
+*d. Change in Weight During COVID-19 Pandemic*
+```{r echo=FALSE}
+weight_change_numsum <- tibble(c("Mean", 
+                                     "Min", 
+                                     "Max", 
+                                     "Median", 
+                                     "Standard Deviation", 
+                                     "Interquartile Range"), 
+                                   c(mean_weight_change, 
+                                     min_weight_change, 
+                                     max_weight_change, 
+                                     median_weight_change, 
+                                     sd_weight_change, 
+                                     iqr_weight_change))
+names(weight_change_numsum )[names(weight_change_numsum ) == "c(\"Mean\", \"Min\", \"Max\", \"Median\", \"Standard Deviation\", \"Interquartile Range\")"] <- "Numerical Measures"
+names(weight_change_numsum )[names(weight_change_numsum ) == "c(...)"] <- "Change in Weight During COVID-19 Pandemic"
+kable(weight_change_numsum , "pipe")
+```
+The table above shows the mean of how much weight individuals gained throughout the COVID-19 pandemic. Since these numbers are referencing 1 of 6 options (1 being an individual gained 1-10 pounds, 2 being an individual gained 11-20 pounds, 3 being an individual gained 21-30 pounds,4 being an individual gained 31-40 pounds, losing weight, staying the same weight), we can see that the average is about **`r mean_weight_change`**, rounded up to 3. This means that the average individual gained between 21-30 pounds throughout the pandemic.
+ 
+```{r echo=FALSE, out.width="75%", out.height="75%", fig.align = 'center'}
+ggplot()+
+  geom_bar(data=surveyDataNew, aes(x=factor(weight_change)), alpha=0.3, fill="navy") + ggtitle("Change in Weight During the COVID-19 Pandemic")+ scale_x_discrete(labels=c("Gained 1-10 pounds", "Gained 11 - 20 pounds", "Gained 21 - 30 Pounds meals", "Gained 31 - 40 pounds", "Lost weight", "Stayed the same weight"))+ xlab(NULL) + ylab("Number of Individuals")+theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+```
+
+The graph above shows that majority of individuals gained between 1-10 pounds during the COVID-19 pandemic. Notice that the number of individuals gaining between 11-40 pounds or staying the same weight seems to be steady as well. This data can be paired with other variables to conclude whether or not this could be a direct result of not having access to facilities or if there may be other reasons for weight gain. 
+
+*e. Average Participation in Physical Activity*
+
+```{r echo=FALSE}
+avgPhysAct_before_numsum <- tibble(c("Mean", 
+                                     "Min", 
+                                     "Max", 
+                                     "Median", 
+                                     "Standard Deviation", 
+                                     "Interquartile Range"), 
+                                   c(mean_avgPhysAct_before, 
+                                     min_avgPhysAct_before, 
+                                     max_avgPhysAct_before, 
+                                     median_avgPhysAct_before, 
+                                     sd_avgPhysAct_before, 
+                                     iqr_avgPhysAct_before))
+names(avgPhysAct_before_numsum )[names(avgPhysAct_before_numsum ) == "c(\"Mean\", \"Min\", \"Max\", \"Median\", \"Standard Deviation\", \"Interquartile Range\")"] <- "Numerical Measures"
+names(avgPhysAct_before_numsum )[names(avgPhysAct_before_numsum ) == "c(...)"] <- "Physical Activity BEFORE the COVID-19 Pandemic"
+kable(avgPhysAct_before_numsum , "pipe")
+```
+
+```{r echo=FALSE}
+avgPhysAct_during_numsum <- tibble(c("Mean", 
+                                     "Min", 
+                                     "Max", 
+                                     "Median", 
+                                     "Standard Deviation", 
+                                     "Interquartile Range"), 
+                                   c(mean_avgPhysAct_during, 
+                                     min_avgPhysAct_during, 
+                                     max_avgPhysAct_during, 
+                                     median_avgPhysAct_during, 
+                                     sd_avgPhysAct_during, 
+                                     iqr_avgPhysAct_during))
+names(avgPhysAct_during_numsum )[names(avgPhysAct_during_numsum ) == "c(\"Mean\", \"Min\", \"Max\", \"Median\", \"Standard Deviation\", \"Interquartile Range\")"] <- "Numerical Measures"
+names(avgPhysAct_during_numsum )[names(avgPhysAct_during_numsum ) == "c(...)"] <- "Physical Activity DURING the COVID-19 Pandemic"
+kable(avgPhysAct_during_numsum , "pipe")
+```
+
+The tables above show the mean, min, max, median, standard deviation and interquartile range for Physical Activity before and during the COVID-19 Pandemic. Notice that the mean hours of physical activity before the COVID-19 pandemic is **`r mean_avgPhysAct_before`**, whereas the mean hours of physical activity during the pandemic is almost half, **`r mean_avgPhysAct_during`**. These values are the sum of all hours spent participating in physical activity before and after the COVID-19 pandemic, respectively, divided by the number of data points for this variable. The min value for both tables is **`r min_avgPhysAct_before`**, meaning that there are individuals in our data that did not participate in physical activity before and during the COVID-19 pandemic. The standard deviation explains how the data is spread out from the
+mean value. Since the hours of physical activity range from 0 to 15 (min to max) for the first table, the standard deviation is **`r sd_avgPhysAct_before`**. Since the hours of physical activity range from 0 to 15 (min to max) for the first table, standard deviation is **`r sd_avgPhysAct_during`**. The Interquartile Range, **`r iqr_avgPhysAct_before`** (before the COVID-19 pandemic) and **`r iqr_avgPhysAct_during`** (during the COVID-19 pandemic), represents how spread out the middle 50% of the data points are.
+
+```{r echo=FALSE, out.width="75%", out.height="75%", fig.align = 'center'}
+ggplot()+
+  geom_histogram(data=surveyDataNew, aes(x=avgPhysAct_before, fill="r"), alpha=0.3) +
+  geom_histogram(data=surveyDataNew, aes(x=avgPhysAct_during, fill="b"), alpha=0.3) +
+  scale_color_manual(name="Physical Activity", values = c("r" = "navy", "b" = "darkorange"), labels=c("r" = "Before COVID", "b" = "During COVID")) +
+  scale_fill_manual(name="Physical Activity", values = c("r" = "navy", "b" = "darkorange"), labels=c("r" = "Before COVID", "b" = "During COVID")) +
+  ggtitle("Participation in Physical Activity Before and During COVID-19 Pandemic") +
+  xlab("Hours") +
+  ylab("Number of Individuals")
+```
+
+A histogram can be constructed to compare the relationship between the physical activity before and after the COVID-19 pandemic. Notice that the majority of individuals spent around 7-8 hours per week participating in physical activity before the COVID-19 pandemic, however that value decreased during the COVID-19 pandemic as the histogram is slightly skewed to the right, meaning that more of the data lies closer to the left side of the plot. Thus, it can be seen that the number of hours an individual participating in physical activity decreased as a result of the COVID-19 pandemic.
+
+*f. Average Number of Meals Eaten per Day*
+```{r echo=FALSE}
+avgMealCount_before_numsum <- tibble(c("Mean", 
+                                     "Min", 
+                                     "Max", 
+                                     "Median", 
+                                     "Standard Deviation", 
+                                     "Interquartile Range"), 
+                                   c(mean_avgMealCount_before, 
+                                     min_avgMealCount_before, 
+                                     max_avgMealCount_before, 
+                                     median_avgMealCount_before, 
+                                     sd_avgMealCount_before, 
+                                     iqr_avgMealCount_before))
+names(avgMealCount_before_numsum )[names(avgMealCount_before_numsum ) == "c(\"Mean\", \"Min\", \"Max\", \"Median\", \"Standard Deviation\", \"Interquartile Range\")"] <- "Numerical Measures"
+names(avgMealCount_before_numsum )[names(avgMealCount_before_numsum ) == "c(...)"] <- "Meals Eaten Daily Before COVID-19 Pandemic"
+kable(avgMealCount_before_numsum , "pipe")
+```
+
+```{r echo=FALSE}
+avgMealCount_during_numsum <- tibble(c("Mean", 
+                                     "Min", 
+                                     "Max", 
+                                     "Median", 
+                                     "Standard Deviation", 
+                                     "Interquartile Range"), 
+                                   c(mean_avgMealCount_during, 
+                                     min_avgMealCount_during, 
+                                     max_avgMealCount_during, 
+                                     median_avgMealCount_during, 
+                                     sd_avgMealCount_during, 
+                                     iqr_avgMealCount_during))
+names(avgMealCount_during_numsum )[names(avgMealCount_during_numsum ) == "c(\"Mean\", \"Min\", \"Max\", \"Median\", \"Standard Deviation\", \"Interquartile Range\")"] <- "Numerical Measures"
+names(avgMealCount_during_numsum )[names(avgMealCount_during_numsum ) == "c(...)"] <- "Meals Eaten Daily During COVID-19 Pandemic"
+kable(avgMealCount_during_numsum , "pipe")
+```
+
+The tables above show the mean, min, and max for the average number of meals eaten per day  before and during the COVID-19 Pandemic. Notice that the mean number of meals eaten per day before the COVID-19 pandemic is **`r mean_avgMealCount_before`**, whereas the number of meals eaten per day during the pandemic is **`r mean_avgMealCount_during`**. We can see that the means are relatively close to 3.0 which tells us that there is no significant difference in terms of the number of meals that were eaten before vs. during the pandemic. Looking at the min values before and during the COVID-19 pandemic, we can see that there was an increase from 1 meal minimum to 2 meals minimum and the the max number of meals per day on average went from to 4 to 5, leaving us with a medium of 3. Although this data alone does not offer much significance, it can be paired with the rest of our data, and possibly provide important insight..
+
+```{r echo=FALSE, out.width="75%", out.height="75%", fig.align = 'center'}
+ggplot()+
+  geom_histogram(data=surveyDataNew, aes(x=avgMealCount_before, fill="r"), alpha=0.3) +
+  geom_histogram(data=surveyDataNew, aes(x=avgMealCount_during, fill="b"), alpha=0.3) +
+  scale_color_manual(name="Meals Eaten", values = c("r" = "navy", "b" = "darkorange"), labels=c("r" = "Before COVID", "b" = "During COVID")) +
+  scale_fill_manual(name="Meals Eaten", values = c("r" = "navy", "b" = "darkorange"), labels=c("r" = "Before COVID", "b" = "During COVID")) +
+  ggtitle("Meals Eaten on Average per Day Before and During COVID-19 Pandemic") +
+  xlab("Number of Meals") +
+  ylab("Number of Individuals")
+```
+
+A histogram can be constructed to compare the relationship between the average number of meals eaten per day before and after the COVID-19 pandemic. Right away we can see that the histogram is shifted to the right by 1 unit when making the comparison between meals eaten on average per day before vs during COVID-19. The graph does not provide significant data other than what has already been mentioned and seen from the table, but it can be paired with the rest of our data to possibly provide important insight.
+
+*g. Weight in lbs*
+```{r echo=FALSE}
+weight_before_numsum <- tibble(c("Mean", 
+                                     "Min", 
+                                     "Max", 
+                                     "Median", 
+                                     "Standard Deviation", 
+                                     "Interquartile Range"), 
+                                   c(mean_weight_before, 
+                                     min_weight_before, 
+                                     max_weight_before, 
+                                     median_weight_before, 
+                                     sd_weight_before, 
+                                     iqr_weight_before))
+names(weight_before_numsum )[names(weight_before_numsum ) == "c(\"Mean\", \"Min\", \"Max\", \"Median\", \"Standard Deviation\", \"Interquartile Range\")"] <- "Numerical Measures"
+names(weight_before_numsum )[names(weight_before_numsum ) == "c(...)"] <- "Weight in lbs Before COVID-19 Pandemic"
+kable(weight_before_numsum , "pipe")
+```
+
+\newpage
+
+```{r echo=FALSE}
+weight_during_numsum <- tibble(c("Mean", 
+                                     "Min", 
+                                     "Max", 
+                                     "Median", 
+                                     "Standard Deviation", 
+                                     "Interquartile Range"), 
+                                   c(mean_weight_during, 
+                                     min_weight_during, 
+                                     max_weight_during, 
+                                     median_weight_during, 
+                                     sd_weight_during, 
+                                     iqr_weight_during))
+names(weight_during_numsum )[names(weight_during_numsum ) == "c(\"Mean\", \"Min\", \"Max\", \"Median\", \"Standard Deviation\", \"Interquartile Range\")"] <- "Numerical Measures"
+names(weight_during_numsum )[names(weight_during_numsum ) == "c(...)"] <- "Weight in lbs During COVID-19 Pandemic"
+kable(weight_during_numsum , "pipe")
+```
+
+The tables above show the mean, min, and max, median, standard deviation and interquartile range for the weight of the individuals before vs during the COVID-19 Pandemic. Notice that the mean weight of individuals before the pandemic was **`r mean_weight_before`**, whereas the mean weight of individuals during the pandemic is, **`r mean_weight_during`**. This shows that the mean weight increased overall, since the pandemic started. The min value for the table representing the data before the pandemic is **`r min_weight_before`** and the min value for the table representing the data during the pandemic is **`r min_weight_during`**. We can see that there is not a significant difference (just 1 pound), thus this is not too significant. The max value on the other hand increased by 20 pounds, with the max weight before the pandemic being **`r max_weight_before`** vs **`r max_weight_during`** during the pandemic. The standard deviation explains how the data is spread out from the mean value. Since the weight of an individual ranges from 97 to 195 (min to max) for the first table, the standard deviation is **`r sd_weight_before`**. Since the weight of an individual ranges from 98 to 215 (min to max) for the second table, the standard deviation is **`r sd_weight_during`**. The Interquartile Range, **`r iqr_weight_before`** (before the COVID-19 pandemic) and **`r iqr_weight_during`** (during the COVID-19 pandemic), represents how spread out the middle 50% of the data points are.
+
+```{r echo=FALSE, out.width="75%", out.height="75%", fig.align = 'center'}
+ggplot()+
+  geom_histogram(data=surveyDataNew, aes(x=weight_before, fill="r"), alpha=0.3) +
+  geom_histogram(data=surveyDataNew, aes(x=weight_during, fill="b"), alpha=0.3) +
+  scale_color_manual(name="Weight in lbs", values = c("r" = "navy", "b" = "darkorange"), labels=c("r" = "Before COVID", "b" = "During COVID")) +
+  scale_fill_manual(name="Weight in lbs", values = c("r" = "navy", "b" = "darkorange"), labels=c("r" = "Before COVID", "b" = "During COVID")) +
+  ggtitle("Weight in lbs Before and During COVID-19 Pandemic") +
+  xlab("Number of Individuals") +
+  ylab("Weight")
+```
+
+A histogram can be constructed to compare the relationship between weight in lbs before vs after the COVID-19 pandemic. Notice that during the graph seems to have shifted and become more spread out during the COVID-19 pandemic, which may be a result of many individuals gaining weight. Before the COVID-19 pandemic, the bulk of the data was between 115-160 pounds, during the pandemic it seems to be between 150-200 pounds. This data, paired with the rest of our data, can provide significant insight related to our goal for this study. 
+
+All analysis for this report was programmed using `R version 4.0.2`. 
+
+## Methods
+
+This section will conduct hyopthesis testing on the variables and will also consider the confidence intervals. The hypothesis testing done will aid in determining which variables are more or less significant. 
+
+This section will use the paired sample t-test [12], allowing the comparison between variabels considered before the COVID-19 pandemic as well as after. In order to ensure the paired t-test can be performed, there are some assumptions that much be satisfied with the data:
+
+1. Dependent variable must be continuous (interval or ratio level)
+2. The groups/samples should be focussed on the same subject/topic
+3. The sample data should be randomly generated from the population
+4. Paired values should have a normally distributed difference
+5. Outliers should not be present in the difference between the two groups
+
+To begin our test, we must declare our null and alternative hypothesis as follows:
+
+Null Hypothesis: $H_0 : \mu_1 = \mu_2$ 
+Alternative Hypothesis: $H_1 : \mu_1 > \mu_2$ 
+
+This null and alternative hypothesis will be used for all of the paired sample t-tests that are conducted
+
+1. First consider the paired sample t-test on the following variables: average physical activity before the COVID-19 pandemic and average physical activity during the COVID-19 pandemic. Note that the values for this data is considered to be in hours. The subject of both of our variables is the same, COVID-19. Random sampling is also considered in the dataset, as mentioned earlier in this report. Finally, from our histrograms, we can see that our data is approximately normally distributed, but this is acceptable as our sample size was relatively small.
+
+Let $\mu_1$ represent the population mean for the average physical activity before the COVID-19 Pandemic
+Let $\mu_2$ represent the population mean for the average physical activity during the COVID-19 Pandemic
+
+Hypothesis Test [12]:
+$t = \frac{\bar{x}_{diff} - 0}{S_{x}}$
+
+Note: ${\bar{x}}$ represents the sample mean of the differences
+Note: ${S_{x}}$ represents the estimated standard error of the mean
+
+Confidence Interval[13]:
+$(a,b) = \bar{x}_1 - \bar{x}_2 \pm t_{\alpha/2,df}*{\sqrt(\frac{s^2_1}{n_1} + \frac{s^2_2}{n_2})}$
+
+2. Next, consider the paired sample t-test on the following variables: weight of an individual during the COVID-19 pandemic vs weight of an individual before the COVID-19 pandemic. Similar to our first set of variables, the subject of the two variables is the same. Random sampling was also performed on this data as mentioned earlier in this report. Finally, the histrograms for this data show that is it approximately normally distributed, as needed.
+
+Let $\mu_1$ represent the population mean for the weight of an individual during the COVID-19 Pandemic
+Let $\mu_2$ represent the population mean for the weight of an individual before the COVID-19 Pandemic
+
+Hypothesis Test [12]:
+$t = \frac{\bar{x}_{diff} - 0}{S_{x}}$
+
+Note: *${\bar{x}_{diff}}$* represents the sample mean of the differences and *${S_{x}}$* represents the estimated standard error of the mean
+
+Confidence Interval [13]:
+$(a,b) = \bar{x}_1 - \bar{x}_2 \pm t_{\alpha/2,df}*{\sqrt(\frac{s^2_1}{n_1} + \frac{s^2_2}{n_2})}$
+
+
+## Results 
+
+The results of the first paired sample t-test considering the average physical activity before vs during the COVID-19 Pandemic as as follows:
+```{r echo=FALSE}
+t.test(avgPhysAct_before, avgPhysAct_during, paired = T)
+t_val <- 4.4345
+p_val <- 0.0001078
+ci_95 <- c(1.620256, 4.379744)
+
+hyp_test1 <- tibble(c("T-Test Value", "P-Value Test", "Confidence Interval Lower Bound", "Confidence Interval Upper Bound"), c(t_val, p_val, ci_95[1], ci_95[2]))
+names(hyp_test1)[names(hyp_test1) == "c(...)"] <- "Calculated Measure"
+names(hyp_test1)[names(hyp_test1) == "c(t_val, p_val, ci_95[1], ci_95[2])"] <- "Calculated Value for Event Participation"
+kable(hyp_test1, "pipe")
+```
+From the table of results above, notice that the t-test value is **`r t_val`** and the p-value is **`r p_val`**. Since the t-value is greater than the p-value, it is safe to reject the null hypothesis and conclude that the average amount of time spent on physical activity before COVID-19 Pandemic was significantly affected when tested with the amount of time spent on physical activity during the COVID-19 Pandemic.
+
+In addition, notice that the 95% confidence interval is (`r ci_95[1]`, `r ci_95[2]`). Since this interval does not contain 0, we can confidently reject the null hypothesis and say, with 95% confidence that the average physical activity participation before the COVID-19 pandemic decreased by `r ci_95[1]` but increased by `r ci_95[2]`
+
+
+The results of the second paired sample t-test considering the weight of an individual during vs before the COVID-19 Pandemic as as follows:
+```{r echo=FALSE}
+t.test(weight_during, weight_before, paired = T)
+t_val2 <- 4.914
+p_val2 <- 2.748e-05
+ci_95_2 <- c(5.008731, 12.116269)
+hyp_test2 <- tibble(c("T-Test Value", "P-Value Test", "Confidence Interval Lower Bound", "Confidence Interval Upper Bound"), c(t_val2, p_val2, ci_95_2[1], ci_95_2[2]))
+names(hyp_test2)[names(hyp_test2) == "c(...)"] <- "Calculated Measure"
+names(hyp_test2)[names(hyp_test2) == "c(t_val2, p_val2, ci_95_2[1], ci_95_2[2])"] <- "Calculated Value for Event Participation"
+kable(hyp_test2, "pipe")
+```
+From the table of results above, notice that the t-test value is **`r t_val2`** and the p-value is **`r p_val2`**. Since the t-value is greater than the p-value, it is safe to reject the null hypothesis and conclude that the weight of an individual after COVID-19 Pandemic was significantly affected when tested with the weight of an individual during the COVID-19 Pandemic.
+
+In addition, notice that the 95% confidence interval is (`r ci_95_2[1]`, `r ci_95_2[2]`). Since this interval does not contain 0, we can confidently reject the null hypothesis and say, with 95% confidence, that the the weight of an individual during the COVID-19 pandemic decreased by `r ci_95_2[1]` but increased by `r ci_95_2[2]`
+
+## Conclusion
+
+In conclusion, it is evident that weight is being affected as a result of the COVID-19 pandemic. After conducting several types of analyses on the variables, including numerical summaries, paired t-tests, and creating plots, it was noticable that many individuals gained weight throughout the course of the COVID-19 pandemic and being at home. The goal of this study was to determine whether the restrictions and lifestyle changes as a result of the pandemic caused changes in an indivduals overall weight, and it was shown that eating habits slightly changed, many individuals stopped participating in physical activity, and most individuals gained between 1-10 pounds since the pandemic started. In addition, the average number of meals daily increased with the minimum number of meals before the pandemic being 1, and the minimum after the pandemic being 2, thus individuals were eating 1 extra meal on average since the COVID-19 pandemic began.
+
+It is clear that many individuals are lacking the exercise and physical activity they need as a result of not having access to the facilities. This study can be further used to hone in on other significant health impacts that individuals might undergo as a result of the pandemic, especially ones that may be linked to weight gain and health risks
+
+\newpage
+
+## Bibliography
+
+1. Nielsen, K. (2020, April 24). *A timeline of COVID-19 in Ontario. Global News; Global News.* [https://globalnews.ca/news/6859636/ontario-coronavirus-timeline/](https://globalnews.ca/news/6859636/ontario-coronavirus-timeline/).
+
+2. DeClerq, K. (2020, September 28). *Ontario is now in the second wave of the COVID-19 pandemic. How bad will it get? Toronto; CTV News.* [https://toronto.ctvnews.ca/ontario-is-now-in-the-second-wave-of-the-covid-19-pandemic-how-bad-will-it-get-1.5122765](https://toronto.ctvnews.ca/ontario-is-now-in-the-second-wave-of-the-covid-19-pandemic-how-bad-will-it-get-1.5122765)
+
+3. Toneguzzi, M. (2020, September 8). *Gym Memberships and Attendance Plummet in Canada Amid COVID-19: Survey. Retail Insider.* [https://retail-insider.com/retail-insider/2020/09/gym-memberships-and-attendance-plummet-in-canada-amid-covid-19-survey/#:~:text=The%20percentage%20of%20people%20keeping,40.44%20percent%20for%20the%20U.S](https://retail-insider.com/retail-insider/2020/09/gym-memberships-and-attendance-plummet-in-canada-amid-covid-19-survey/#:~:text=The%20percentage%20of%20people%20keeping,40.44%20percent%20for%20the%20U.S)
+
+4. Buy Email Lists | Build Your Own Marketing List | Bookyourdata.com. (2021). *Bookyourdata.com.* [https://www.bookyourdata.com/tool/main/wjhhZdl1s2yM01ei](https://www.bookyourdata.com/tool/main/wjhhZdl1s2yM01ei)
+
+5. Wikipedia Contributors. (2020, October 7). *Sampling frame. Wikipedia; Wikimedia Foundation.* [https://en.wikipedia.org/wiki/Sampling_frame#Types_of_sampling_frames](https://en.wikipedia.org/wiki/Sampling_frame#Types_of_sampling_frames)
+
+6. Name Directory - Markham, A to Yogen Fruz in Canada | Canada411 People Finder. (2021). *Canada411Ca.* [https://www.canada411.ca/markham-1](https://www.canada411.ca/markham-1)
+
+7. Munsters, M. J. M., & Saris, W. H. M. (2012). *Effects of Meal Frequency on Metabolic Profiles and Substrate Partitioning in Lean Healthy Males. US National Library of Medicine, 7(6), e38632.* [https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3374835/#:~:text=Increasing%20eating%20frequency%20has%20been,body%20fat%20storage%20%5B4%5D](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3374835/#:~:text=Increasing%20eating%20frequency%20has%20been,body%20fat%20storage%20%5B4%5D)
+
+8. National Institute of Diabetes and Digestive and Kidney Diseases. (2021, May 14). *Factors Affecting Weight & Health | NIDDK. National Institute of Diabetes and Digestive and Kidney Diseases.* [https://www.niddk.nih.gov/health-information/weight-management/adult-overweight-obesity/factors-affecting-weight-health](https://www.niddk.nih.gov/health-information/weight-management/adult-overweight-obesity/factors-affecting-weight-health)
+
+9. Markham, ON - Demographics | Townfolio. (2021). *Townfolio.* [https://townfolio.co/on/markham/demographics](https://townfolio.co/on/markham/demographics)
+
+10. How to remove a column from an R data frame? (2020). Tutorialspoint.com. [https://www.tutorialspoint.com/how-to-remove-a-column-from-an-r-data-frame](https://www.tutorialspoint.com/how-to-remove-a-column-from-an-r-data-frame)
+
+11. Riederer, E. (2020, November 23). *10.2 The kableExtra package | R Markdown Cookbook. Bookdown.org.* [https://bookdown.org/yihui/rmarkdown-cookbook/kableextra.html](https://bookdown.org/yihui/rmarkdown-cookbook/kableextra.html)
+
+12. Kent.edu. (2018). *LibGuides: SPSS Tutorials: Paired Samples t Test.* [https://libguides.library.kent.edu/SPSS/PairedSamplestTest](https://libguides.library.kent.edu/SPSS/PairedSamplestTest)
+
+13. Yale.edu. (2021). *Confidence Intervals.*  [http://www.stat.yale.edu/Courses/1997-98/101/confint.htm](http://www.stat.yale.edu/Courses/1997-98/101/confint.htm)
+
+
+
+
+
+
+
+

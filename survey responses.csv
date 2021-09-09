@@ -1,0 +1,33 @@
+Timestamp,Did you participate in physical activity before the COVID-19 Pandemic?,Do you participate in physical activity during the COVID-19 Pandemic?,"On average, how many hours per week did you spend participating in physical activity before the COVID-19 Pandemic (input a numerical value in hours)","On average, how many hours per week do you spend participating in physical activity during the COVID-19 Pandemic (input a numerical value in hours)",Did your eating habits change as a result of the COVID-19 Pandemic?,How many meals did you eat on average before the COVID-19 Pandemic started? (input a numerical value),How many meals have you been eating on average per day since the COVID-19 Pandemic started? (input a numerical value),What do your meals consist mostly of during the COVID-19 Pandemic?,"Approximately what weight range were you in before the COVID-19 Pandemic, around March 2020 (input a numerical value in pounds)",How has your weight changed since the COVID-19 Pandemic began?,"Approximately what weight range are you in now, during the COVID-19 Pandemic, around May 2021 (input a numerical value in pounds)"
+44326.72022,Yes,No,7,0,Yes,2,4,Home made meals,189,Gained 21 - 30 Pounds,215
+44326.72224,Yes,Yes,13,8,Yes,2,3,Home made meals,175,Gained 1-10 pounds,181
+44326.7226,Yes,Yes,14,10,Yes,3,4,Home made meals,155,I stayed the same weight,155
+44326.72317,Yes,Yes,4,2,No,3,3,Home made meals,164,Gained 1-10 pounds,172
+44326.72524,No,No,0,0,No,3,3,Home made meals,122,Gained 1-10 pounds,126
+44326.72608,Yes,Yes,15,6,Yes,3,5,Take out meals,155,Gained 1-10 pounds,165
+44326.72691,Yes,No,7,0,Yes,3,3,Home made meals,156,I stayed the same weight,156
+44326.7278,Yes,Yes,6,3,Yes,2,3,Home made meals,97,Gained 1-10 pounds,102
+44326.72942,Yes,No,2,0,Yes,2,4,Snacks,113,Gained 1-10 pounds,122
+44326.73021,Yes,No,6,0,No,3,3,Home made meals,122,Gained 1-10 pounds,126
+44326.73307,Yes,Yes,8,1,Yes,4,2,Home made meals,195,Gained 21 - 30 Pounds,213
+44326.73444,Yes,No,5,3,Yes,3,2,Home made meals,165,Gained 1-10 pounds,170
+44326.73444,Yes,No,6,4,Yes,3,5,Home made meals,158,I stayed the same weight,158
+44326.73477,No,Yes,2,5,Yes,2,3,Home made meals,110,Gained 1-10 pounds,119
+44326.73488,Yes,Yes,5,4,No,3,4,Home made meals,131,Gained 1-10 pounds,137
+44326.73633,Yes,Yes,4,4,Yes,3,2,Home made meals,106,I lost weight,99
+44326.73667,Yes,Yes,6,3,No,2,2,Home made meals,115,I stayed the same weight,115
+44326.74172,Yes,Yes,9,5,Yes,4,4,Home made meals,184,Gained 1-10 pounds,192
+44326.74525,Yes,Yes,8,3,Yes,2,3,Take out meals,166,Gained 31 - 40 pounds,198
+44326.74809,Yes,Yes,2,6,Yes,3,4,Home made meals,110,Gained 1-10 pounds,118
+44326.7496,Yes,Yes,2,6,Yes,2,3,Home made meals,117,Gained 11 - 20 pounds,135
+44326.75163,Yes,Yes,3,2,Yes,3,2,Home made meals,123,I stayed the same weight,123
+44326.75958,Yes,Yes,9,2,No,3,3,Home made meals,152,Gained 1-10 pounds,161
+44326.76824,Yes,Yes,4,1,Yes,2,4,Home made meals,170,Gained 21 - 30 Pounds,192
+44326.77106,Yes,Yes,1,4,Yes,1,2,Snacks,172,I stayed the same weight,172
+44326.77638,Yes,Yes,15,8,Yes,3,5,Take out meals,156,Gained 1-10 pounds,164
+44326.77676,Yes,Yes,11,4,Yes,4,5,Take out meals,193,Gained 11 - 20 pounds,205
+44326.78653,No,No,0,0,Yes,3,5,Take out meals,106,Gained 1-10 pounds,112
+44326.79401,Yes,Yes,3,6,Yes,3,3,Home made meals,124,I stayed the same weight,124
+44326.80238,Yes,No,10,0,Yes,2,2,Take out meals,156,Gained 31 - 40 pounds,188
+44326.83959,Yes,No,6,0,Yes,3,3,Home made meals,164,Gained 21 - 30 Pounds,186
+44326.89963,Yes,Yes,7,4,Yes,3,2,Home made meals,104,I lost weight,98
